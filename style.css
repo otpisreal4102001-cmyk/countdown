@@ -59,12 +59,15 @@ body {
 
 /* Countdown Flip Clock */
 .flip-clock {
-  display:flex;
-  font-size:80px;
-  font-weight:bold;
-  color:white;
-  gap:10px;
-  margin-top:120px; /* Đẩy lên gần top */
+  position: absolute;       /* bắt buộc để dùng top/left */
+  top: 50%;                 /* 50% từ trên xuống */
+  left: 50%;                /* 50% từ trái sang */
+  transform: translate(-50%, -50%); /* dịch về giữa chính xác */
+  display: flex;
+  font-size: 80px;
+  font-weight: bold;
+  color: white;
+  gap: 10px;
 }
 .flip {
   background: rgba(0,0,0,0.2);
