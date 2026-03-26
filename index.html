@@ -1,0 +1,51 @@
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Countdown Flip + YouTube + Fireworks</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Popup icons trên cùng -->
+<div id="topPopupContainer">
+  <div id="heartPopup" class="popupIcon" title="Set Time">&#10084;</div>
+  <div id="ytPopupIcon" class="popupIcon" title="YouTube">&#9658;</div>
+  <div id="resetPopup" class="popupIcon" title="Reset">&#10227;</div>
+</div>
+
+<!-- Hidden popup contents -->
+<div id="heartInputs" class="popupContent">
+  <input type="number" id="hours" placeholder="H" min="0">
+  <input type="number" id="minutes" placeholder="M" min="0" max="59">
+  <input type="number" id="seconds" placeholder="S" min="0" max="59">
+</div>
+
+<div id="ytPopup" class="popupContent">
+  <input type="text" id="ytLink" placeholder="Paste YouTube Link Here" style="width:250px;">
+  <button id="loadBtn">Load</button>
+  <div class="controls">
+    <button id="playBtn">▶️</button>
+    <button id="pauseBtn">⏸️</button>
+    <button id="loopBtn">🔁</button>
+  </div>
+  <div id="ytContainer"></div>
+</div>
+
+<!-- Countdown Flip Clock -->
+<div id="countdown" class="flip-clock">
+  <span class="flip" id="hoursFlip">00</span>:<span class="flip" id="minutesFlip">00</span>:<span class="flip" id="secondsFlip">00</span>
+</div>
+
+<!-- Music progress bar outside -->
+<div class="progressBarOuter">
+  <div class="progressBar"><div class="progress"></div></div>
+</div>
+
+<canvas id="fireworks"></canvas>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+<script src="script.js"></script>
+</body>
+</html>

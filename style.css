@@ -1,0 +1,95 @@
+/* Nền pastel động */
+body {
+  margin:0;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  background: linear-gradient(270deg, #f8b195, #fbc6c3, #c9c9ff, #b8e0d2);
+  background-size: 800% 800%;
+  animation: gradientBG 20s ease infinite;
+  font-family: 'Courier New', monospace;
+  overflow:hidden;
+  cursor:pointer;
+}
+@keyframes gradientBG {
+  0% {background-position:0% 50%;}
+  50% {background-position:100% 50%;}
+  100% {background-position:0% 50%;}
+}
+
+/* Popup icons trên cùng */
+#topPopupContainer {
+  position:absolute;
+  top:10px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  gap:10px;
+}
+.popupIcon {
+  width:40px;
+  height:40px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  font-size:24px;
+  cursor:pointer;
+  transition: transform 0.2s, background 0.2s;
+  background:rgba(255,255,255,0.2);
+  color:white;
+}
+.popupIcon:hover {transform: scale(1.2); background:rgba(255,255,255,0.4);}
+
+/* Popup contents */
+.popupContent {
+  position:absolute;
+  display:none;
+  flex-direction:row;
+  gap:3px;
+  padding:5px;
+  border-radius:10px;
+  background: rgba(255,255,255,0.3);
+  z-index:10;
+}
+.popupContent input {width:50px; text-align:center; border-radius:5px; border:none; padding:2px;}
+.popupContent button {padding:2px 5px; border-radius:5px; border:none; background:white; cursor:pointer;}
+
+/* Countdown Flip Clock */
+.flip-clock {
+  display:flex;
+  font-size:80px;
+  font-weight:bold;
+  color:white;
+  gap:10px;
+  margin-top:120px; /* Đẩy lên gần top */
+}
+.flip {
+  background: rgba(0,0,0,0.2);
+  border-radius:10px;
+  padding:10px 20px;
+}
+
+/* Music player inside popup */
+#ytPopup {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:3px;
+  background: rgba(255,255,255,0.2);
+  padding:5px;
+  border-radius:10px;
+}
+#ytPopup input,#ytPopup button {padding:3px; border-radius:5px; border:none;}
+.controls {display:flex; align-items:center; gap:5px;}
+.controls button {font-size:16px; cursor:pointer; background:transparent; border:none; color:white;}
+
+/* Progress bar outside */
+.progressBarOuter {position:absolute; bottom:30px; width:80%; max-width:400px;}
+.progressBar {width:100%; height:5px; background: rgba(255,255,255,0.3); border-radius:2px; cursor:pointer;}
+.progress {height:100%; width:0%; background:#fff;}
+
+/* Canvas pháo hoa */
+#fireworks {position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none;}
