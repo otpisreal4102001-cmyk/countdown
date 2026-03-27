@@ -76,7 +76,7 @@ body {
   left: 50%;                /* 50% từ trái sang */
   transform: translate(-50%, -50%); /* dịch về giữa chính xác */
   display: flex;
-  font-size: 80px;
+  font-size: 120px;
   font-weight: bold;
   color: white;
   gap: 10px;
@@ -84,7 +84,7 @@ body {
 .flip {
   background: rgba(0,0,0,0.2);
   border-radius:10px;
-  padding:10px 20px;
+  padding:40px 30px;
 }
 
 /* Music player inside popup */
@@ -139,5 +139,5 @@ body.no-blur::before {
 #bgPopup input {border-radius:5px; border:none; padding:2px;}
 #bgPopup button {
   width: 180px; /* hoặc width bạn cần */
-  box-sizing: border-box;
+  box-sizinsg: border-box;
 padding:2px 5px; border-radius:5px; border:none; background:white; cursor:pointer;}
