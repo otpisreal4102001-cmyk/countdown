@@ -219,7 +219,7 @@ bgIcon.addEventListener('click', (e) => {
     // Tính vị trí
     const rect = bgIcon.getBoundingClientRect();
     let top = rect.bottom + 5;
-    let left = rect.left;
+    let left = rect.left+100;
 
     // dùng setTimeout 0 để đảm bảo popup đã render và có kích thước
     setTimeout(() => {
