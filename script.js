@@ -219,23 +219,9 @@ bgIcon.addEventListener('click', (e) => {
     // Tính vị trí
     const rect = bgIcon.getBoundingClientRect();
     let top = rect.bottom + 5;
-    let left = rect.left+100;
+    let left = rect.left;
 
-    // dùng setTimeout 0 để đảm bảo popup đã render và có kích thước
-    setTimeout(() => {
-      const popupRect = bgPopup.getBoundingClientRect();
-
-      // giới hạn popup không vượt quá màn hình
-      if (left + popupRect.width > window.innerWidth) {
-        left = window.innerWidth - popupRect.width - 10; // cách cạnh phải 10px
-      }
-      if (top + popupRect.height > window.innerHeight) {
-        top = rect.top - popupRect.height - 5; // hiện ở trên icon nếu quá thấp
-      }
-
-      bgPopup.style.top = top + 'px';
-      bgPopup.style.left = left + 'px';
-    }, 0);
+   
   }
 });
 
