@@ -72,10 +72,21 @@ function startCountdown(){
   totalSeconds=h*3600+m*60+s;
   updateCountdown();
   clearInterval(countdownInterval);
-  countdownInterval=setInterval(()=>{
-    if(totalSeconds<=0){clearInterval(countdownInterval); launchFireworksLoop(); return;}
-    totalSeconds--; updateCountdown();
-  },1000);
+  countdownInterval = setInterval(() => {
+  if(totalSeconds <= 0) {
+    clearInterval(countdownInterval); 
+    launchFireworksLoop(); 
+    
+    // --- 🔹 Dừng nhạc YouTube ---
+    if(ytPlayer && playerReady) {
+      ytPlayer.pauseVideo();
+    }
+
+    return;
+  }
+  totalSeconds--; 
+  updateCountdown();
+}, 1000);
 }
 
 // Nhấn Enter để start
@@ -121,9 +132,22 @@ const ytContainer=document.getElementById('ytContainer');
 loadBtn.addEventListener('click',()=>{
   const id=getVideoId(ytLinkInput.value);
   if(!id) return alert('Link YouTube không hợp lệ');
+
+  // 👉 SET BACKGROUND THEO VIDEO
+  const thumbnail = `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
+  document.body.style.backgroundImage = `url(${thumbnail})`;
+  document.body.style.backgroundSize = 'cover';
+  document.body.style.backgroundPosition = 'center';
+
+  // 👉 TẮT gradient animation cũ
+  document.body.style.animation = 'none';
+  document.body.style.backgroundColor = 'black';
+
   if(ytPlayer) ytPlayer.destroy();
   ytContainer.innerHTML='';
-  const div=document.createElement('div'); div.id='ytPlayerDiv'; ytContainer.appendChild(div);
+  const div=document.createElement('div'); 
+  div.id='ytPlayerDiv'; 
+  ytContainer.appendChild(div);
 
   ytPlayer=new YT.Player('ytPlayerDiv',{
     width:'300', height:'170',
@@ -131,7 +155,13 @@ loadBtn.addEventListener('click',()=>{
     playerVars:{autoplay:1, controls:0},
     events:{
       'onReady':()=>{playerReady=true; ytPlayer.playVideo(); updateProgress();},
-      'onStateChange':()=>{if(loopMode && ytPlayer.getPlayerState()===0){ytPlayer.seekTo(0,true); ytPlayer.playVideo();} requestAnimationFrame(updateProgress);}
+      'onStateChange':()=>{
+        if(loopMode && ytPlayer.getPlayerState()===0){
+          ytPlayer.seekTo(0,true); 
+          ytPlayer.playVideo();
+        }
+        requestAnimationFrame(updateProgress);
+      }
     }
   });
 });
@@ -159,3 +189,76 @@ function updateProgress(){
     requestAnimationFrame(updateProgress);
   }
 }
+const blurToggle = document.getElementById('blurToggle');
+let blurOn = true;
+blurToggle.addEventListener('click',(e)=>{
+  e.stopPropagation();
+  blurOn = !blurOn;
+
+  if(blurOn){
+    document.body.classList.remove('no-blur');
+  } else {
+    document.body.classList.add('no-blur');
+  }
+});
+const bgIcon = document.getElementById('bgPopupIcon');
+const bgPopup = document.getElementById('bgPopup');
+const bgFileInput = document.getElementById('bgFileInput');
+const bgDefaultBtn = document.getElementById('bgDefaultBtn');
+
+bgIcon.addEventListener('click', (e) => {
+  e.stopPropagation();
+  bgPopup.style.display = (bgPopup.style.display === 'flex') ? 'none' : 'flex';
+  bgPopup.style.flexDirection = 'row';
+  const rect = bgIcon.getBoundingClientRect();
+bgPopup.style.display = 'flex';
+bgPopup.style.flexDirection = 'row';
+
+let top = rect.bottom + 5;
+let left = rect.left;
+
+// giới hạn popup không vượt quá màn hình
+const popupRect = bgPopup.getBoundingClientRect();
+if (left + popupRect.width > window.innerWidth) {
+  left = window.innerWidth - popupRect.width - 500; // cách cạnh phải 10px
+}
+if (top + popupRect.height > window.innerHeight) {
+  top = rect.top - popupRect.height - 5; // hiện ở trên icon nếu quá thấp
+}
+
+bgPopup.style.top = top + 'px';
+bgPopup.style.left = left + 'px';
+});
+
+// Ẩn popup khi click ngoài
+document.addEventListener('click', (e) => {
+  if (!bgPopup.contains(e.target) && !bgIcon.contains(e.target)) {
+    bgPopup.style.display = 'none';
+  }
+});
+
+// Chọn ảnh từ máy
+bgFileInput.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const url = URL.createObjectURL(file);
+  document.body.style.backgroundImage = `url(${url})`;
+  document.body.style.backgroundSize = 'cover';
+  document.body.style.backgroundPosition = 'center';
+  document.body.style.animation = 'none'; // tắt gradient
+});
+
+// Reset về mặc định
+bgDefaultBtn.addEventListener('click', () => {
+  bgPopup.style.display = 'none';
+  
+  // Ẩn video nếu đang phát
+  bgVideo.style.display = 'none';
+  bgVideo.src = '';
+
+  // Quay về gradient mặc định
+  document.body.style.background = 'linear-gradient(270deg, #f8b195, #fbc6c3, #c9c9ff, #b8e0d2)';
+  document.body.style.backgroundSize = '800% 800%';
+  document.body.style.animation = 'gradientBG 20s ease infinite';
+});
+
