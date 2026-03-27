@@ -220,7 +220,7 @@ let left = rect.left;
 // giới hạn popup không vượt quá màn hình
 const popupRect = bgPopup.getBoundingClientRect();
 if (left + popupRect.width > window.innerWidth) {
-  left = window.innerWidth - popupRect.width - 5000; // cách cạnh phải 10px
+  left = 10000; // cách cạnh phải 10px
 }
 if (top + popupRect.height > window.innerHeight) {
   top = rect.top - popupRect.height - 5; // hiện ở trên icon nếu quá thấp
